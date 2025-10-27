@@ -189,6 +189,17 @@ def registrar_reservacion():
         if turnos_libres:
             disponible_salas.append((s["id_sala"], s["nombre"], s["cupo"], turnos_libres))
 
+    dias_festivos = [
+        (1, 1),    # Año Nuevo
+        (5, 1),    # Día del Trabajo
+        (9, 16),   # Independencia de México
+        (11, 20),  # Revolución Mexicana
+        (12, 25)   # Navidad
+    ]
+    if (fecha.month, fecha.day) in dias_festivos:
+        print("No se permiten reservaciones en días festivos.")
+        return None
+
     if not disponible_salas:
         print("No hay salas disponibles para esa fecha")
         return
